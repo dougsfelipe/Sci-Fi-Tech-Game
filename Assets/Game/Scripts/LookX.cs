@@ -20,11 +20,5 @@ public class LookX : MonoBehaviour
         Vector3 newRotation = transform.localEulerAngles;
         newRotation.y += _mouseX * _sensitivity;
         transform.localEulerAngles = newRotation;
-
-
-        
-
-
-
     }
 }
