@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _hitmarkprefab;
     [SerializeField] private AudioSource _weaponaudio;
 
+    [SerializeField] private GameObject Weapon;
+
     [SerializeField] private int currentAmmo;
     private int maxAmmo = 50;
     private bool isreloading = false;
@@ -70,7 +72,6 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0) && currentAmmo > 0)
         {
 
-            if (currentAmmo > 0) { }
             Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hitInfo;
             currentAmmo--;
@@ -85,6 +86,13 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Ray cast hit: " + hitInfo.transform.name);
                 Instantiate(_hitmarkprefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+
+                Destroy crate = hitInfo.transform.GetComponent<Destroy>();
+
+                if(crate != null){
+                    crate.Destroycrate();
+                }
+
             }
         }
         else
@@ -99,6 +107,10 @@ public class Player : MonoBehaviour
         currentAmmo = maxAmmo;
         _uimanager.UpdateAmmo(currentAmmo);
         isreloading = false;
+    }
+
+    public void EnableWeapon(){
+        Weapon.SetActive(true);
     }
 
 
